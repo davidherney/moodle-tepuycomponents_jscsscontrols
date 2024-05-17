@@ -1,0 +1,484 @@
+/********************************************************************************/
+/* Float window
+/********************************************************************************/
+.tepuy-wf {
+    position: absolute;
+    padding: 10px 35px 10px 10px;
+    background-color: #eaeaea;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #bbb;
+    z-index: 2;
+}
+
+.tepuy-wf.tepuy-autox {
+    left: 10px;
+    right: 10px;
+    overflow: auto;
+}
+
+.tepuy-wf.tepuy-autoy {
+    top: 10px;
+    bottom: 10px;
+    overflow: auto;
+}
+
+.moodle-dialogue-bd .tepuy-body {
+    overflow: auto;
+}
+
+.tepuy-wf .tepuy-body {
+    left: unset;
+    right: unset;
+    top: unset;
+    bottom: unset;
+    position: relative;
+}
+
+.tepuy-wf.tepuy-autox .tepuy-body,
+.tepuy-wf.tepuy-autoy .tepuy-body {
+    overflow: auto;
+    top: 20px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    position: absolute;
+}
+
+.tepuy-wf .tepuy-close {
+    position: absolute;
+    background-color: #5a9faf;
+    border-radius: 5px;
+    border: 2px solid #666;
+    line-height: 24px;
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+    width: 25px;
+    height: 25px;
+    top: 0;
+    right: 0;
+    color: #fff;
+    cursor: pointer;
+}
+
+.tepuy-wf .tepuy-close:hover {
+    background-color: #fbdb9b;
+    color: #666;
+}
+
+.tepuy-wf-box {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.moodle-dialogue-bd .tepuy-body .row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/********************************************************************************/
+/* Modal window
+/********************************************************************************/
+.tepuy-body-w {
+    padding: 20px;
+    margin-top: 20px;
+}
+
+/********************************************************************************/
+/* Moodle pages in float window
+/********************************************************************************/
+.tepuy-body {
+    position: absolute;
+    left: 3px;
+    right: 3px;
+    bottom: 3px;
+    top: 45px;
+}
+
+.tepuy-body iframe {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.tepuy-openinmodal-container {
+    position: absolute;
+    top: 45px;
+    bottom: 3px;
+    left: 3px;
+    right: 3px;
+    width: calc(100% - 6px);
+    height: calc(100% - 48px);
+    border: none;
+}
+
+.pagelayout-popup #page {
+    margin: 0;
+}
+
+/********************************************************************************/
+/* Tepuy transitions / visual effects.
+/********************************************************************************/
+.tepuy-tr-blur,
+.tepuy-tr-borroso {
+    transition: .3s ease-in-out;
+}
+
+.tepuy-tr-blur:hover,
+.tepuy-tr-borroso:hover {
+    filter: blur(1px);
+    transition: .3s ease-in-out;
+}
+
+.tepuy-tr-transparent,
+.tepuy-tr-transparente {
+    transition: .3s ease-in-out;
+}
+
+.tepuy-tr-transparent:hover,
+.tepuy-tr-transparente:hover {
+    transition: .3s ease-in-out;
+    opacity: .5;
+}
+
+.tepuy-tr-gray,
+.tepuy-tr-gris {
+    transition: .3s ease-in-out;
+    filter: grayscale(0);
+}
+
+.tepuy-tr-gray:hover,
+.tepuy-tr-gris:hover {
+    transition: .3s ease-in-out;
+    filter: grayscale(1);
+}
+
+.tepuy-tr-sepia {
+    transition: .3s ease-in-out;
+    filter: sepia(0);
+}
+
+.tepuy-tr-sepia:hover {
+    transition: .3s ease-in-out;
+    filter: sepia(1);
+}
+
+.tepuy-tr-shadow,
+.tepuy-tr-sombra {
+    transition: .3s ease-in-out;
+    box-shadow: none;
+}
+
+.tepuy-tr-shadow:hover,
+.tepuy-tr-sombra:hover {
+    transition: .3s ease-in-out;
+    box-shadow: 0 0 10px #888;
+}
+
+.tepuy-tr-zoomin,
+.tepuy-tr-mas {
+    transition: .3s ease-in-out;
+}
+
+.tepuy-tr-zoomin:hover,
+.tepuy-tr-mas:hover {
+    transform: scale(1.05);
+    transition: .3s ease-in-out;
+}
+
+.tepuy-tr-zoomout,
+.tepuy-tr-menos {
+    transition: .3s ease-in-out;
+}
+
+.tepuy-tr-zoomout:hover,
+.tepuy-tr-menos:hover {
+    transform: scale(0.95);
+    transition: .3s ease-in-out;
+}
+
+/********************************************************************************/
+/* Tepuy special course styles.
+/********************************************************************************/
+.tepuy-c-resources-list > .inplaceeditable.inplaceeditable-text,
+.tepuy-c-resources-list > a,
+.tepuy-c-resources-list .completiontag {
+    display: block;
+    position: relative;
+}
+
+.tepuy-c-resources-list > .inplaceeditable.inplaceeditable-text,
+.tepuy-c-resources-list > a {
+    padding-left: 25px;
+}
+
+.tepuy-c-resources-list .completiontag .btn.btn-link {
+    padding: 0;
+}
+
+.tepuy-c-resources-list .autocompletion,
+.tepuy-c-resources-list .togglecompletion {
+    display: inline-block;
+}
+
+.tepuy-c-resourcebutton {
+    width: 207px;
+    background: linear-gradient(to bottom, #fff 0%, #868686 50%, #868686 100%);
+    border-radius: 10px;
+    color: #fff;
+    margin: 10px 0;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    position: relative;
+    font-size: 15px;
+}
+
+.tepuy-c-resourcebutton a,
+.tepuy-c-resourcebutton a:hover,
+.tepuy-c-resourcebutton a:focus {
+    color: #fff;
+    text-decoration: none;
+}
+
+.tepuy-c-resourcebutton .tepuy-c-rb-name {
+    position: relative;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+}
+
+.tepuy-c-resourcebutton .tepuy-c-rb-name:hover,
+.tepuy-c-resourcebutton .tepuy-c-rb-name:focus,
+.tepuy-c-resourcebutton .tepuy-c-rb-name:active {
+    -webkit-transform: translateY(8px);
+    transform: translateY(8px);
+}
+
+.tepuy-c-resourcebutton .tepuy-c-rb-name a:before {
+    font-family: 'FontAwesome';
+    position: absolute;
+    color: #fff;
+    left: 5px;
+    top: calc(50% - 10px);
+    font-size: 45px;
+    line-height: 20px;
+}
+
+.tepuy-c-resourcebutton.tepuy-c-rb-forum .tepuy-c-rb-name a:before {
+    content: "";
+}
+
+.tepuy-c-resourcebutton.tepuy-c-rb-assign .tepuy-c-rb-name a:before {
+    content: "";
+}
+
+.tepuy-c-resourcebutton.tepuy-c-rb-content .tepuy-c-rb-name a:before {
+    content: "";
+}
+
+.tepuy-c-resourcebutton.tepuy-c-rb-db .tepuy-c-rb-name a:before {
+    content: "";
+}
+
+.tepuy-c-resourcebutton.tepuy-c-rb-work .tepuy-c-rb-name a:before {
+    content: "";
+}
+
+.tepuy-c-resourcebutton.tepuy-c-rb-survey .tepuy-c-rb-name a:before {
+    content: "";
+}
+
+.tepuy-c-resourcebutton.tepuy-c-rb-glossary .tepuy-c-rb-name a:before {
+    content: "";
+}
+
+.tepuy-c-resourcebutton.tepuy-c-rb-chat .tepuy-c-rb-name a:before {
+    content: "";
+}
+
+.tepuy-c-resourcebutton.tepuy-c-rb-wiki .tepuy-c-rb-name a:before {
+    content: "✍";
+}
+
+.tepuy-c-resourcebutton.tepuy-c-rb-grade .tepuy-c-rb-name a:before {
+    content: "✔";
+}
+
+.tepuy-c-resourcebutton.tepuy-c-rb-scorm .tepuy-c-rb-name a:before {
+    content: "";
+}
+
+.tepuy-c-resourcebutton .tepuy-c-rb-name a {
+    padding: 5px 5px 5px 60px;
+    background-color: #444;
+    border-radius: 10px;
+    text-align: left;
+    font-size: 13px;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.tepuy-c-resourcebutton.active .tepuy-c-rb-name a,
+.tepuy-c-resourcebutton.complete .tepuy-c-rb-name a,
+.tepuy-c-resourcebutton .tepuy-c-rb-name a:hover {
+    background-color: #001a7b;
+}
+
+.tepuy-c-resourcebutton img.activityicon,
+.tepuy-c-resourcebutton .autocompletion,
+.tepuy-c-resourcebutton .togglecompletion {
+    display: none;
+}
+
+.tepuy-c-resourcebutton .tepuy-c-rb-type {
+    padding: 5px;
+}
+
+.tepuy-c-resourcebutton.complete:after {
+    content: "";
+    font-family: 'FontAwesome';
+    font-size: 50px;
+    color: #64aa23;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    right: -50px;
+    top: calc(50% - 25px);
+}
+
+.tepuy-c-resourcebutton.active,
+.tepuy-c-resourcebutton.complete {
+    background: linear-gradient(to bottom, #fff 0%, #64aa23 50%, #64aa23 100%);
+}
+
+.tepuy-c-resourcebutton .iconwithhelp {
+    position: absolute;
+    right: 0;
+    bottom: calc(50% - 10px);
+    z-index: 2;
+}
+
+.tepuy-c-resourcebutton .activityinsummarytpl .activity-basis {
+    display: block;
+}
+
+/********************************************************************************/
+/* Tepuy images slider.
+/********************************************************************************/
+.tepuy-sliderimages {
+    width: 100%;
+    max-height: 500px;
+    text-align: center;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.tepuy-sliderimages img {
+    display: none;
+    max-width: 100%;
+    max-height: 490px;
+    cursor: pointer;
+}
+
+.tepuy-sliderimages img.active {
+    display: unset;
+}
+
+.tepuy-sliderimages .slide-control {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    font-size: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #f89708;
+    opacity: 0.3;
+}
+
+.tepuy-sliderimages .slide-control[data-action="after"] {
+    left: unset;
+    right: 0;
+}
+
+.tepuy-sliderimages .slide-control:hover {
+    color: #364568;
+}
+
+.tepuy-sliderimages:hover .slide-control {
+    opacity: 1;
+}
+
+.forumpost .posting.fullpost .attachedimages img {
+    margin: 0;
+    border: 0;
+    padding: 0;
+}
+
+/********************************************************************************/
+/* Tepuy toggle CSS class.
+/********************************************************************************/
+[tepuy-toggle] {
+    cursor: pointer;
+}
+
+/********************************************************************************/
+/* Tepuy acordion
+*********************************************************************************/
+.tepuy-accordion > div.closed {
+    margin-bottom: 10px;
+}
+
+.tepuy-accordion > div > h3 {
+    background-color: #73caef;
+    color: #001a7b;
+    border: 2px solid #ccc;
+    padding: 10px 10px 10px 50px;
+    position: relative;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.tepuy-accordion > div > h3:hover {
+    opacity: 0.9;
+}
+
+.tepuy-accordion > div > h3:before {
+    content: "+";
+    position: absolute;
+    left: 10px;
+    color: #001a7b;
+}
+
+.tepuy-accordion > div.opened > h3:before {
+    content: "-";
+}
+
+.tepuy-accordion > div > div {
+    border: 1px solid #ccc;
+    background-color: #eee;
+    border-radius: 3px;
+    padding: 10px 20px;
+    display: none;
+    margin-bottom: 3px;
+}
+
+/********************************************************************************/
+/* Tepuy show and hide in over
+*********************************************************************************/
+.tepuy-mouse-over {
+    cursor: default;
+}
