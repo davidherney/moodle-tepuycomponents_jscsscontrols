@@ -46,14 +46,23 @@ define(['jquery'], function($) {
             });
 
             if ($('.attachedimages').length > 0) {
-                var $sliderimages = $('<div class="tepuy-sliderimages"></div>');
-                $sliderimages.insertBefore($('.attachedimages')[0]);
-            }
 
-            $('.attachedimages img').each(function() {
-                var $this = $(this);
-                $sliderimages.append($this);
-            });
+                $('article.forum-post-container .forumpost').each(function() {
+                    var $this = $(this);
+                    var $attachedimages = $this.find('.attachedimages');
+
+                    if ($attachedimages.length > 0) {
+
+                        var $sliderimages = $('<div class="tepuy-sliderimages"></div>');
+                        $sliderimages.insertBefore($attachedimages[0]);
+
+                        $attachedimages.find('img').each(function() {
+                            var $this = $(this);
+                            $sliderimages.append($this);
+                        });
+                    }
+                });
+            }
 
             $('.tepuy-sliderimages').each(function() {
                 var $this = $(this);
