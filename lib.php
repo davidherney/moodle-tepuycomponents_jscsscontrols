@@ -32,6 +32,10 @@ defined('MOODLE_INTERNAL') || die();
  * @throws dml_exception
  */
 function tepuycomponents_jscsscontrols_before_http_headers() {
+    // This is an implementation of a legacy callback that will only be called in older Moodle versions.
+    // It will not be called in Moodle versions that contain the hook core\hook\output\before_http_headers,
+    // instead, the callback tepuycomponents_jscsscontrols\local\hooks\output\before_http_headers::callback will be executed.
+
     global $COURSE, $PAGE;
 
 //    $PAGE->requires->css('/local/tepuy/components/jscsscontrols/styles.css');

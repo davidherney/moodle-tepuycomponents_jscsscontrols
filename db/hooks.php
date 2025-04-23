@@ -15,15 +15,20 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file contains the version information for the component "JS and CSS controls".
+ * Hook callbacks for JS and CSS controls
  *
- * @package   tepuycomponents_jscsscontrols
- * @copyright 2021 David Herney - https://bambuco.co
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    tepuycomponents_jscsscontrols
+ * @copyright  2025 David Herney @ BambuCo
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die('Direct access to this script is forbidden.');
+defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2021092400.02; // The current module version (Date: YYYYMMDDXX).
-$plugin->requires  = 2020061503; // Requires this Moodle version (3.9).
-$plugin->component = 'tepuycomponents_jscsscontrols';
+$callbacks = [
+
+    [
+        'hook' => core\hook\output\before_http_headers::class,
+        'callback' => 'tepuycomponents_jscsscontrols\local\hooks\output\before_http_headers::callback',
+        'priority' => 0,
+    ],
+];
