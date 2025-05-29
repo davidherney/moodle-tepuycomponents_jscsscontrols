@@ -94,7 +94,7 @@
     left: 3px;
     right: 3px;
     bottom: 3px;
-    top: 45px;
+    top: 3px;
 }
 
 .tepuy-body iframe {
@@ -109,18 +109,21 @@
 }
 
 .tepuy-openinmodal-container {
-    position: absolute;
-    top: 45px;
-    bottom: 3px;
-    left: 3px;
-    right: 3px;
-    width: calc(100% - 6px);
-    height: calc(100% - 48px);
+    width: 100%;
+    height: calc(100% - 10px);
     border: none;
 }
 
 .pagelayout-popup #page {
     margin: 0;
+}
+
+.modal.show .modal-dialog.tepuy-modal-dialog {
+    max-width: unset;
+}
+
+.modal.show .modal-dialog.tepuy-modal-dialog .modal-body {
+    padding: 0;
 }
 
 /********************************************************************************/

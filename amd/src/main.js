@@ -13,7 +13,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-define(['jquery'], function($) {
+define(['jquery', 'core/modal', 'core/modal_events'], function($, Modal, ModalEvents) {
   'use strict';
 
     return {
@@ -222,18 +222,17 @@ define(['jquery'], function($) {
                     return;
                 }
 
-                var $float_window = $($this.attr('data-content'));
+                var $floatwindow = $($this.attr('data-content'));
 
                 if (w) {
-                    $float_window.css('width', w);
+                    $floatwindow.css('width', w);
                 }
 
                 if (h) {
-                    $float_window.css('height', h);
+                    $floatwindow.css('height', h);
                 }
 
-                console.log($float_window);
-                $float_window.show({ effect: 'slide', direction: 'down' });
+                $floatwindow.show({ effect: 'slide', direction: 'down' });
             });
 
             // ==============================================================================================
@@ -259,31 +258,31 @@ define(['jquery'], function($) {
                         searchparams.courseid = courseid;
                     }
 
-                    $.get(M.cfg.wwwroot + '/mod/glossary/showentry_ajax.php',
-                            searchparams,
-                            function(data) {
+                    searchparams.inpopup = true;
 
-                                if (data.entries && Object.keys(data.entries).length > 0) {
-                                    var content = '';
+                    var searchparamsstring = $.param(searchparams);
 
-                                    Object.keys(data.entries).forEach(function(item) {
-                                        if (data.entries[item].definition) {
-                                            content = data.entries[item].definition;
-                                        }
-                                    });
-                                    $this.find('.tepuy-body').html(content);
-                                }
-                    }, 'json');
+                    var url = M.cfg.wwwroot + '/mod/glossary/showentry.php?' + searchparamsstring;
+                    var $iframe = $('<iframe class="tepuy-openinmodal-container"></iframe>');
+                    $iframe.attr('src', url);
+                    $iframe.on('load', function() {
+                        $iframe.contents().find('a:not([target])').attr('target', '_top');
+                    });
+
+                    $this.find('.tepuy-body').append($iframe);
+                    $this.attr('title', $this.find('a.autolink').html());
 
                 } else if ($this.attr('data-tepuy-innerentry')) {
 
                     if ($this.find('a.glossary.autolink').length > 0) {
-                        $.get($this.find('a.glossary.autolink').attr('href').replace('showentry.php', 'showentry_ajax.php'),
-                                function(data) {
-                                    if (data.entries && data.entries.length > 0) {
-                                        $this.find('.tepuy-body').html(data.entries[0].definition);
-                                    }
-                        }, 'json');
+                        var url = $this.find('a.glossary.autolink').attr('href') + '&inpopup=true';
+                        var $iframe = $('<iframe class="tepuy-openinmodal-container"></iframe>');
+                        $iframe.attr('src', url);
+                        $iframe.on('load', function() {
+                            $iframe.contents().find('a:not([target])').attr('target', '_top');
+                        });
+
+                        $this.find('.tepuy-body').append($iframe);
 
                         $this.attr('title', $this.find('a.glossary.autolink').attr('title'));
                     }
@@ -293,7 +292,7 @@ define(['jquery'], function($) {
                         var url = $this.find('a.autolink').attr('href') + '&inpopup=true';
                         $this.find('a.autolink').hide();
 
-                        var $iframe = $('<iframe></iframe>');
+                        var $iframe = $('<iframe class="tepuy-openinmodal-container"></iframe>');
                         $iframe.attr('src', url);
                         $iframe.on('load', function() {
                             $iframe.contents().find('a:not([target])').attr('target', '_top');
@@ -323,18 +322,9 @@ define(['jquery'], function($) {
                     var w = $this.attr('data-property-width');
                     var h = $this.attr('data-property-height');
 
-                    var $float_window = $($this.attr('data-content') + ' .tepuy-body');
+                    var $floatwindow = $($this.attr('data-content') + ' .tepuy-body');
 
-                    var properties = {
-                        center: true,
-                        modal: true,
-                        visible: false,
-                        draggable: false,
-                        width: 'auto',
-                        height: 'auto',
-                        autofillheight: 'header',
-                        bodyContent: $float_window
-                    };
+                    var properties = {};
 
                     if (w) {
                         if (w.indexOf('%') >= 0) {
@@ -343,6 +333,10 @@ define(['jquery'], function($) {
                             if (!isNaN(tmp_w) && tmp_w > 0) {
                                 w = tmp_w * window_w / 100;
                             }
+                        }
+
+                        if (!isNaN(w)) {
+                            w += 'px';
                         }
 
                         properties.width = w;
@@ -357,14 +351,43 @@ define(['jquery'], function($) {
                             }
                         }
 
+                        if (!isNaN(h)) {
+                            h += 'px';
+                        }
+
                         properties.height = h;
                     }
 
-                    var dialogue = new M.core.dialogue(properties);
-                    $this.data('dialogue', dialogue);
-                }
+                    Modal.create({
+                        body: $floatwindow,
+                        title: $this.attr('title') || $this.text(),
+                    })
+                    .then(function(modal) {
 
-                dialogue.show();
+                        // When the dialog is closed, pause video and audio.
+                        modal.getRoot().on(ModalEvents.hidden, function() {
+                            $floatwindow.contents().find('video, audio').each(function(){
+                                this.pause();
+                            });
+                        });
+
+                        var $style = '';
+                        if (properties.width) {
+                            $style += 'width: ' + properties.width + '; ';
+                        }
+                        if (properties.height) {
+                            $style += 'height: ' + properties.height + '; ';
+                        }
+                        modal.getRoot().find('> .modal-dialog').attr('style', $style).addClass('tepuy-modal-dialog');
+                        modal.show();
+                        $this.data('dialogue', modal);
+
+                        return modal;
+                    });
+
+                } else {
+                    dialogue.show();
+                }
             });
 
             // ==============================================================================================
@@ -400,26 +423,19 @@ define(['jquery'], function($) {
                             $iframe.contents().find('a:not([target])').attr('target', '_top');
                         });
 
-
                         var el = $.fn['hide'];
                         $.fn['hide'] = function () {
                             this.trigger('hide');
                             return el.apply(this, arguments);
                         };
 
-                        var $float_window = $('<div></div>');
+                        var $floatwindow = $('<div></div>');
 
-                        $float_window.append($iframe);
+                        $floatwindow.append($iframe);
 
                         var properties = {
-                            center: true,
-                            modal: true,
-                            visible: false,
-                            draggable: true,
-                            width: '90vw',
-                            height: '90vh',
-                            autofillheight: 'header',
-                            bodyContent: $float_window
+                            width: '95vw',
+                            height: '95vh',
                         };
 
                         if (w) {
@@ -446,20 +462,31 @@ define(['jquery'], function($) {
                             properties.height = h;
                         }
 
-                        var dialogue = new M.core.dialogue(properties);
-                        $link.data('dialogue', dialogue);
-                        dialogue.after('visibleChange', function(e) {
-                            if (e.attrName === 'visible') {
-                                if (e.prevVal && !e.newVal) {
-                                    $iframe.contents().find('video, audio').each(function(){
-                                        this.pause();
-                                    });
-                                }
-                            }
-                        }, dialogue);
-                    }
+                        Modal.create({
+                            body: $iframe,
+                            title: $link.attr('title') || $link.text(),
+                        })
+                        .then(function(modal) {
 
-                    dialogue.show();
+                            // When the dialog is closed, pause video and audio.
+                            modal.getRoot().on(ModalEvents.hidden, function() {
+                                $iframe.contents().find('video, audio').each(function(){
+                                    this.pause();
+                                });
+                            });
+
+                            modal.getRoot().find('> .modal-dialog').attr('style', 'width: ' + properties.width +
+                                                                            '; height: ' + properties.height + ';')
+                                                                            .addClass('tepuy-modal-dialog');
+                            modal.show();
+                            $link.data('dialogue', modal);
+
+                            return modal;
+                        });
+
+                    } else {
+                        dialogue.show();
+                    }
 
                 });
 
