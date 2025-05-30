@@ -447,6 +447,10 @@ define(['jquery', 'core/modal', 'core/modal_events'], function($, Modal, ModalEv
                                 }
                             }
 
+                            if (!isNaN(w)) {
+                                w += 'px';
+                            }
+
                             properties.width = w;
                         }
 
@@ -457,6 +461,10 @@ define(['jquery', 'core/modal', 'core/modal_events'], function($, Modal, ModalEv
                                 if (!isNaN(tmp_h) && tmp_h > 0) {
                                     h = tmp_h * window_h / 100;
                                 }
+                            }
+
+                            if (!isNaN(h)) {
+                                h += 'px';
                             }
 
                             properties.height = h;
