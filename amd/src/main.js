@@ -116,10 +116,10 @@ define(['jquery', 'core/modal', 'core/modal_events'], function($, Modal, ModalEv
 
             $('.completiontag.incomplete').parents('.completion-parent').addClass('incomplete');
 
-            $('[tepuy-toggle]').on('click', function() {
+            $('[tepuy-toggle], [data-tepuy-toggle]').on('click', function() {
                 var $this = $(this);
-                var cssclass = $this.attr('tepuy-toggle');
-                var target = $this.attr('tepuy-target');
+                var cssclass = $this.attr('tepuy-toggle') || $this.attr('data-tepuy-toggle');
+                var target = $this.attr('tepuy-target') || $this.attr('data-tepuy-target');
 
                 $(target).toggleClass(cssclass);
             });
@@ -518,13 +518,14 @@ define(['jquery', 'core/modal', 'core/modal_events'], function($, Modal, ModalEv
             // ==============================================================================================
             // Mouseover image
             // ==============================================================================================
-            $('img[tepuy-over]').on('mouseover', function(){
+            $('img[tepuy-over], img[data-tepuy-over]').on('mouseover', function(){
                 var $this = $(this);
+                let attrover = $this.attr('tepuy-over') || $this.attr('data-tepuy-over');
                 $this.attr('original-src', $this.attr('src'));
-                $this.attr('src', $this.attr('tepuy-over'));
+                $this.attr('src', attrover);
             });
 
-            $('img[tepuy-over]').on('mouseout', function(){
+            $('img[tepuy-over], img[data-tepuy-over]').on('mouseout', function(){
                 var $this = $(this);
                 $this.attr('src', $this.attr('original-src'));
             });
